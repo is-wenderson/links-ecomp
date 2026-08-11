@@ -3,99 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Meus Links</title>
+    <title>Techcomp | Assessoria em TI</title>
+    <!-- Fonte Inter do Google Fonts para visual moderno e profissional -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Ícones FontAwesome para melhorar a UX visual -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            /* Paleta de cores */
-            --bg-color: #f3f4f6;
-            --text-color: #1f2937;
-            --button-bg: #ffffff;
-            --button-hover: #e5e7eb;
-            --button-border: #d1d5db;
+            /* Paleta de cores corporativa */
+            --primary-color: #004A99; /* Azul escuro tecnológico */
+            --primary-hover: #003673;
+            --bg-color: #F8FAFC; /* Fundo leve para contraste */
+            --text-main: #1E293B;
+            --text-muted: #475569;
+            --card-bg: #FFFFFF;
+            --border-color: #E2E8F0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--text-main);
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin: 0;
-            padding: 60px 20px;
+            min-height: 100vh;
+            padding: 40px 20px;
         }
 
-        .profile-pic {
-            width: 96px;
-            height: 96px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 16px;
-            background-color: #ccc; /* Fallback caso não haja imagem */
-        }
-
-        .profile-name {
-            font-size: 20px;
-            font-weight: bold;
-            margin: 0 0 8px 0;
-            text-align: center;
-        }
-
-        .profile-bio {
-            font-size: 15px;
-            margin: 0 0 32px 0;
-            text-align: center;
-            max-width: 400px;
-            color: #4b5563;
-        }
-
-        .links-container {
+        /* Container Principal */
+        .container {
+            width: 100%;
+            max-width: 480px;
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            align-items: center;
+        }
+
+        /* Cabeçalho / Perfil da Empresa */
+        .header {
+            text-align: center;
+            margin-bottom: 32px;
             width: 100%;
-            max-width: 600px;
+            background-color: var(--card-bg);
+            padding: 32px 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            border: 1px solid var(--border-color);
+        }
+
+        /* Espaço da logo (substituir no HTML por imagem quando possuir o arquivo) */
+        .logo-placeholder {
+            width: 90px;
+            height: 90px;
+            border-radius: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin: 0 auto 16px auto;
+            letter-spacing: -1px;
+        }
+
+        .logo-img {
+            width: 120px;
+            height: auto;
+            margin-bottom: 16px;
+            object-fit: contain;
+        }
+
+        .company-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+            letter-spacing: -0.5px;
+        }
+
+        .company-description {
+            font-size: 15px;
+            line-height: 1.5;
+            color: var(--text-muted);
+        }
+
+        /* Seção de Links */
+        .links-wrapper {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
 
         .link-btn {
-            display: block;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
             width: 100%;
-            padding: 16px;
-            background-color: var(--button-bg);
-            color: var(--text-color);
+            padding: 16px 24px;
+            background-color: var(--card-bg);
+            color: var(--text-main);
             text-decoration: none;
-            text-align: center;
-            border: 1px solid var(--button-border);
-            border-radius: 8px;
             font-size: 16px;
-            font-weight: 500;
-            transition: background-color 0.2s ease, transform 0.1s ease;
-            box-sizing: border-box;
-            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+            font-weight: 600;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            position: relative;
         }
 
-        .link-btn:hover {
-            background-color: var(--button-hover);
-            transform: scale(1.02);
+        .link-btn i {
+            font-size: 20px;
+            color: var(--primary-color);
+            transition: color 0.2s ease;
+        }
+
+        /* Efeito de Hover */
+        .link-btn:hover, .link-btn:focus {
+            background-color: var(--primary-color);
+            color: #FFFFFF;
+            border-color: var(--primary-color);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(0, 74, 153, 0.15);
+            outline: none;
+        }
+
+        .link-btn:hover i {
+            color: #FFFFFF;
+        }
+        
+        /* Botão em Destaque */
+        .link-btn.highlight {
+            background-color: var(--primary-color);
+            color: #FFFFFF;
+            border: none;
+        }
+        .link-btn.highlight i {
+            color: #FFFFFF;
+        }
+        .link-btn.highlight:hover {
+            background-color: var(--primary-hover);
+        }
+
+        /* Rodapé */
+        .footer {
+            margin-top: 40px;
+            text-align: center;
+            font-size: 13px;
+            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Imagem de Perfil -->
-    <img src="sua-foto.jpg" alt="Foto de Perfil" class="profile-pic">
+    <main class="container">
+        <!-- Cabeçalho -->
+        <header class="header">
+            <!-- Caso tenha a URL da logo em PNG/SVG, exclua a div 'logo-placeholder' e descomente a tag img abaixo -->
+            <!-- <img src="COLOQUE_A_URL_AQUI" class="logo-img" alt="Techcomp Logo"> -->
+            <div class="logo-placeholder">TC</div>
+            
+            <h1 class="company-name">TECHCOMP</h1>
+            <p class="company-description">
+                Soluções em TI com suporte contínuo, atendimento remoto e prevenção de falhas para empresas.
+            </p>
+        </header>
 
-    <!-- Informações do Usuário -->
-    <h1 class="profile-name">Seu Nome ou Marca</h1>
-    <p class="profile-bio">SASDASDASDASDA descrição sobre você, sua área de atuação ou seu negócio.</p>
+        <!-- Container de Links -->
+        <nav class="links-wrapper" aria-label="Links principais">
+            
+            <!-- Link de Destaque -->
+            <a href="https://wa.me/558430133030" class="link-btn highlight" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-whatsapp"></i>
+                Falar com Especialista
+            </a>
 
-    <!-- Links -->
-    <div class="links-container">
-        <a href="https://seusite.com.br" class="link-btn" target="_blank" rel="noopener noreferrer">Meu Site</a>
-        <a href="https://instagram.com/seuusuario" class="link-btn" target="_blank" rel="noopener noreferrer">Instagram</a>
-        <a href="https://linkedin.com/in/seuusuario" class="link-btn" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://wa.me/55DDDNUMERO" class="link-btn" target="_blank" rel="noopener noreferrer">WhatsApp</a>
-    </div>
+            <!-- Links Secundários -->
+            <a href="https://www.grupoecomp.com.br/empresa/techcomp/" class="link-btn" target="_blank" rel="noopener noreferrer">
+                <i class="fa-solid fa-globe"></i>
+                Nosso Site
+            </a>
+
+            <a href="mailto:relacionamento@grupoecomp.com.br" class="link-btn" target="_blank" rel="noopener noreferrer">
+                <i class="fa-regular fa-envelope"></i>
+                Suporte por E-mail
+            </a>
+
+            <a href="https://www.instagram.com/SEU_INSTAGRAM_AQUI" class="link-btn" target="_blank" rel="noopener noreferrer">
+                <i class="fa-brands fa-instagram"></i>
+                Instagram
+            </a>
+            
+        </nav>
+
+        <!-- Rodapé / Informações Institucionais -->
+        <footer class="footer">
+            <p>Grupo Ecomp © 2024</p>
+            <p><i class="fa-solid fa-location-dot"></i> Natal – RN | (84) 3013-3030</p>
+        </footer>
+    </main>
 
 </body>
 </html>
