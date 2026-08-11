@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meus Links</title>
+    <style>
+        :root {
+            /* Paleta de cores */
+            --bg-color: #f3f4f6;
+            --text-color: #1f2937;
+            --button-bg: #ffffff;
+            --button-hover: #e5e7eb;
+            --button-border: #d1d5db;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 60px 20px;
+        }
+
+        .profile-pic {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 16px;
+            background-color: #ccc; /* Fallback caso não haja imagem */
+        }
+
+        .profile-name {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 0 0 8px 0;
+            text-align: center;
+        }
+
+        .profile-bio {
+            font-size: 15px;
+            margin: 0 0 32px 0;
+            text-align: center;
+            max-width: 400px;
+            color: #4b5563;
+        }
+
+        .links-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .link-btn {
+            display: block;
+            width: 100%;
+            padding: 16px;
+            background-color: var(--button-bg);
+            color: var(--text-color);
+            text-decoration: none;
+            text-align: center;
+            border: 1px solid var(--button-border);
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            transition: background-color 0.2s ease, transform 0.1s ease;
+            box-sizing: border-box;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .link-btn:hover {
+            background-color: var(--button-hover);
+            transform: scale(1.02);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Imagem de Perfil -->
+    <img src="sua-foto.jpg" alt="Foto de Perfil" class="profile-pic">
+
+    <!-- Informações do Usuário -->
+    <h1 class="profile-name">Seu Nome ou Marca</h1>
+    <p class="profile-bio">Uma breve descrição sobre você, sua área de atuação ou seu negócio.</p>
+
+    <!-- Links -->
+    <div class="links-container">
+        <a href="https://seusite.com.br" class="link-btn" target="_blank" rel="noopener noreferrer">Meu Site</a>
+        <a href="https://instagram.com/seuusuario" class="link-btn" target="_blank" rel="noopener noreferrer">Instagram</a>
+        <a href="https://linkedin.com/in/seuusuario" class="link-btn" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://wa.me/55DDDNUMERO" class="link-btn" target="_blank" rel="noopener noreferrer">WhatsApp</a>
+    </div>
+
+</body>
+</html>
