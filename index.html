@@ -102,9 +102,9 @@
     .event-badge {
       display: inline-flex;
       align-items: center;
-      gap: 7px;
+      gap: 8px;
       color: var(--muted);
-      font-size: .64rem;
+      font-size: .7rem;
       font-weight: 800;
       letter-spacing: .12em;
       text-transform: uppercase;
@@ -126,32 +126,36 @@
     .brand-wordmark {
       margin: 0;
       display: inline-flex;
-      align-items: baseline;
-      gap: 0;
-      color: var(--title-soft);
-      font-size: clamp(2rem, 9vw, 2.72rem);
-      line-height: 1;
-      letter-spacing: -.065em;
-      font-weight: 800;
-      text-transform: uppercase;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 16px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(244,249,255,.88));
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,.42), 0 14px 30px rgba(0,0,0,.18);
+      backdrop-filter: blur(8px);
     }
 
-    .brand-wordmark .brand-comp {
-      margin-left: .08em;
-      padding: .06em .16em .08em .12em;
-      color: var(--tech-blue);
-      background: var(--comp-plate);
-      border-radius: 8px;
-      letter-spacing: -.055em;
-      box-shadow: 0 6px 18px rgba(0,0,0,.14);
+    .brand-wordmark .title-icon {
+      width: 46px;
+      height: 46px;
+      flex: 0 0 auto;
+      object-fit: contain;
+      filter: drop-shadow(0 3px 10px rgba(5,18,44,.10));
+    }
+
+    .brand-wordmark .title-wordmark {
+      width: min(100%, 252px);
+      height: auto;
+      object-fit: contain;
+      filter: drop-shadow(0 3px 10px rgba(5,18,44,.10));
     }
 
     .hero-copy {
-      margin: 14px 0 0;
-      max-width: 385px;
-      color: var(--muted);
-      font-size: .9rem;
-      line-height: 1.65;
+      margin: 18px 0 0;
+      max-width: 395px;
+      color: var(--title-soft);
+      font-size: 1.1rem;
+      line-height: 1.62;
       font-weight: 500;
     }
 
@@ -163,12 +167,12 @@
     }
 
     .link-btn {
-      min-height: 60px;
+      min-height: 76px;
       display: grid;
-      grid-template-columns: 40px 1fr 28px;
+      grid-template-columns: 48px 1fr 30px;
       align-items: center;
-      gap: 10px;
-      padding: 10px 12px;
+      gap: 12px;
+      padding: 14px 16px;
       border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--surface);
@@ -200,8 +204,8 @@
     }
 
     .btn-icon {
-      width: 40px;
-      height: 40px;
+      width: 48px;
+      height: 48px;
       display: grid;
       place-items: center;
       border-radius: 12px;
@@ -212,8 +216,8 @@
 
     .primary .btn-icon { color: #fff; background: rgba(255,255,255,.12); }
     .btn-copy { min-width: 0; text-align: left; }
-    .btn-copy strong { display: block; font-size: .91rem; font-weight: 800; line-height: 1.22; }
-    .btn-copy small { display: block; margin-top: 3px; color: var(--muted-2); font-size: .67rem; font-weight: 600; line-height: 1.3; }
+    .btn-copy strong { display: block; font-size: 1.08rem; font-weight: 800; line-height: 1.24; }
+    .btn-copy small { display: block; margin-top: 5px; color: var(--muted-2); font-size: .82rem; font-weight: 600; line-height: 1.35; }
     .primary .btn-copy small { color: rgba(255,255,255,.74); }
     .arrow { color: #738899; transition: var(--transition); }
     .primary .arrow { color: #fff; }
@@ -247,77 +251,31 @@
     }
 
     .story-kicker {
-      margin: 0 0 10px;
+      margin: 0 0 12px;
       color: var(--teal-light);
-      font-size: .69rem;
+      font-size: .92rem;
       font-weight: 800;
-      letter-spacing: .16em;
+      letter-spacing: .14em;
       text-transform: uppercase;
     }
 
     .story-head h2 {
       margin: 0;
-      max-width: 430px;
-      font-size: clamp(1.55rem, 6.4vw, 2rem);
+      max-width: 440px;
+      font-size: clamp(2.15rem, 7.6vw, 2.8rem);
       line-height: 1.08;
-      letter-spacing: -.04em;
+      letter-spacing: -.045em;
       font-weight: 800;
-    }
-
-    .story-lead {
-      margin: 16px 0 0;
-      color: var(--white);
-      font-size: .97rem;
-      line-height: 1.7;
-      font-weight: 600;
     }
 
     .story-copy {
-      margin: 11px 0 0;
+      margin: 18px 0 0;
       color: var(--muted);
-      font-size: .88rem;
-      line-height: 1.72;
+      font-size: 1.14rem;
+      line-height: 1.78;
       font-weight: 500;
     }
 
-    .story-logo {
-      position: relative;
-      margin: 24px 0 8px;
-      min-height: 132px;
-      padding: 22px 22px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.72);
-      border-radius: var(--radius);
-      background:
-        radial-gradient(circle at 92% 10%, rgba(77,155,210,.14), transparent 32%),
-        linear-gradient(145deg, #ffffff 0%, #f1f5f8 100%);
-      box-shadow: 0 18px 40px rgba(0,0,0,.18);
-    }
-
-    .story-logo::after {
-      content: "TECHCOMP";
-      position: absolute;
-      right: -10px;
-      bottom: -12px;
-      color: rgba(7,35,96,.045);
-      font-size: 3.2rem;
-      font-weight: 800;
-      letter-spacing: -.07em;
-      pointer-events: none;
-    }
-
-    .story-logo img {
-      position: relative;
-      z-index: 1;
-      width: min(100%, 300px);
-      max-height: 92px;
-      object-fit: contain;
-      object-position: left center;
-      filter: none;
-    }
 
     .pillars {
       display: grid;
@@ -328,13 +286,13 @@
       display: grid;
       grid-template-columns: 42px 1fr;
       gap: 14px;
-      padding: 20px 0;
+      padding: 24px 0;
       border-bottom: 1px solid var(--line);
     }
 
     .pillar-number {
       color: var(--teal-light);
-      font-size: .68rem;
+      font-size: .82rem;
       font-weight: 800;
       letter-spacing: .1em;
       padding-top: 3px;
@@ -343,33 +301,33 @@
     .pillar strong {
       display: block;
       color: var(--white);
-      font-size: .92rem;
+      font-size: 1.2rem;
       font-weight: 800;
     }
 
     .pillar p {
-      margin: 6px 0 0;
+      margin: 8px 0 0;
       color: var(--muted);
-      font-size: .82rem;
-      line-height: 1.62;
+      font-size: 1.07rem;
+      line-height: 1.72;
       font-weight: 500;
     }
 
     .company-cta {
       width: 100%;
-      min-height: 58px;
+      min-height: 78px;
       margin-top: 22px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 15px 18px;
+      padding: 17px 20px;
       border-radius: var(--radius);
       border: 1px solid rgba(110,219,208,.28);
       color: var(--white);
       background: linear-gradient(100deg, rgba(31,176,157,.16), rgba(64,126,173,.10));
       text-decoration: none;
-      font-size: .88rem;
+      font-size: 1.1rem;
       font-weight: 800;
       transition: var(--transition);
     }
@@ -392,7 +350,7 @@
     .company-cta:active { transform: translateY(0) scale(.992); }
 
     .social { padding: 32px 2px 12px; text-align: center; }
-    .social-label { margin: 0 0 15px; color: var(--muted-2); font-size: .72rem; font-weight: 700; }
+    .social-label { margin: 0 0 15px; color: var(--muted-2); font-size: .82rem; font-weight: 700; }
     .social-nav { display: flex; justify-content: center; gap: 10px; }
     .social-link {
       width: 44px;
@@ -423,7 +381,8 @@
     @media (max-width: 390px) {
       .click-logo { width: 154px; }
       .event-badge { font-size: .59rem; letter-spacing: .09em; }
-      .brand-wordmark { font-size: clamp(1.82rem, 9vw, 2.35rem); }
+      .brand-wordmark .title-icon { width: 40px; height: 40px; }
+      .brand-wordmark .title-wordmark { width: min(100%, 228px); }
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -446,7 +405,7 @@
         </header>
 
         <div class="hero">
-          <h1 class="brand-wordmark" id="hero-title"><span>TECH</span><span class="brand-comp">COMP</span></h1>
+          <h1 class="brand-wordmark" id="hero-title"><img class="title-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIoAAACKCAYAAAB1h9JkAAAClElEQVR4nO3dQU7bUBRA0Z+qg26kG2EnjMqQpTAsI3bCRrqRztJBkQpSnVxDEuz4nCkRssTl+8fPTnb7/X7AMV8++wBYB6GQCIVEKCRCIREKiVBIvh57wbfvty60bMTvX0+7qZ9ZUUiEQiIUEqGQCIVEKCRCIREKiVBIhEIiFJKjs565Ds0LuKxTzumsKCRCIREKiVBIhEIiFBKhkAiFRCgkQiERColQSIRCIhQSoZCc/H6Uj1rKs871vpq5x7vW+3WsKCRCIREKiVBIFreZ/ai7x3mv//njPMdxbawoJEIhEQqJUEiEQiIUksW9PZ4zCznFXOjucYyHm3XOXy7JijLGuH9exiByyYTyQiyHCeUVsUxb3B7ls90/3+4/umc5NEaYinHp+6SrC+XQ7KbOgU4Ry7XZ1Klnzh/faeitTYUyhljea3OhjCGW99hkKGMsf/O4NJsNZQyxzLHpUMYQS7X5UMYQSyEUEqGQCIXk6i7hL8GhMYJnj7lqQiERColQSIRCIhQSoZAIhUQoJKu4Mjt1l9nUzdI+HOf0rCgkQiERColQSIQSeGRDKNnWYxHKDFuORSgzbTUWobzwmOlhQnlFLNNWcQn/kh5unnY1gvvn2/1WxgirCGXqP/1c3xY2J5atcOqZ4DHTt4RygFj+EcoRYvlLKIFYVrKZvbT/bZLnfrPYnN89ZUmPn1pRSIRCIhQSoZAIhUQoJN4eR9c25JvLikIiFBKhkAiFZNWb2XPNQpY0Y1kKKwqJUEiEQiIUEqGQCIVEKCRCIREKiVBIhEIiFBKhkAiFRCgkJ78f5VwfbsPnsqKQCIVEKCRCIREKiVBIhEIiFBKhkAiFRCgku/3eaIbjrCgkQiERColQSIRCIhSSP8h8hZ4chOsjAAAAAElFTkSuQmCC" alt="Símbolo TechComp" /><img class="title-wordmark" src="data:image/png;base64,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" alt="TechComp" /></h1>
           <p class="hero-copy">Participe do sorteio, acompanhe os resultados e conheça como a TechComp ajuda empresas a reduzir custos, organizar o parque tecnológico e cuidar das demandas de TI.</p>
         </div>
       </section>
@@ -484,12 +443,7 @@
         <div class="story-head">
           <p class="story-kicker">Conheça a TechComp</p>
           <h2 id="tech-story-title">Mais controle da tecnologia. Menos custo para a operação.</h2>
-          <p class="story-lead">A TechComp apoia empresas na gestão do parque tecnológico e na execução dos serviços de TI necessários para manter a operação organizada, eficiente e disponível.</p>
-          <p class="story-copy">O trabalho parte de uma visão prática do ambiente: entender os recursos existentes, organizar ativos e demandas, apoiar a rotina de TI e identificar oportunidades para reduzir custos e melhorar o aproveitamento da estrutura tecnológica da empresa.</p>
-        </div>
-
-        <div class="story-logo" aria-label="Identidade visual da TechComp">
-          <img src="data:image/webp;base64,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" alt="Logo TechComp" />
+                    <p class="story-copy">O trabalho parte de uma visão prática do ambiente: entender os recursos existentes, organizar ativos e demandas, apoiar a rotina de TI e identificar oportunidades para reduzir custos e melhorar o aproveitamento da estrutura tecnológica da empresa.</p>
         </div>
 
         <div class="pillars" aria-label="Principais frentes da TechComp">
