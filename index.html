@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#071c2c" />
+  <meta name="theme-color" content="#1C1C4F" />
   <meta name="description" content="TechComp no Click Digital 2026. Redução de custos, gestão do parque tecnológico e serviços de TI." />
   <title>TechComp | Click Digital</title>
 
@@ -14,26 +14,35 @@
 
   <style>
     :root {
-      --navy-950: #04131f;
-      --navy-900: #071c2c;
-      --navy-800: #0a2c3a;
-      --green-800: #0b4b43;
-      --green-700: #0c6b56;
-      --teal: #27b7a7;
-      --teal-light: #6edbd0;
-      --blue: #4d9bd2;
-      --tech-blue: #072360; /* azul predominante da identidade TechComp */
-      --white: #f7fbff;
-      --title-soft: #cbd7e0;
-      --comp-plate: #d8e1e8;
-      --muted: #a8bac7;
-      --muted-2: #748b9b;
-      --line: rgba(255,255,255,.12);
-      --surface: rgba(255,255,255,.055);
-      --surface-hover: rgba(255,255,255,.09);
+      /* Identidade oficial TechComp — Brand Board */
+      --brand-blue: #1C1C4F;       /* Pantone 275 C — RGB 28 28 79 */
+      --brand-blue-deep: #0D1033;
+      --brand-blue-mid: #262A63;
+      --brand-blue-soft: #343A78;
+      --brand-green: #61BD53;      /* Pantone 360 C — RGB 97 189 83 */
+      --brand-green-dark: #4A9D40;
+      --brand-green-light: #8DDA80;
+
+      --navy-950: #0D1033;
+      --navy-900: #151842;
+      --navy-800: #1C1C4F;
+      --green-800: #274A3A;
+      --green-700: #356A43;
+      --teal: #61BD53;
+      --teal-light: #8DDA80;
+      --blue: #343A78;
+      --tech-blue: #1C1C4F;
+      --white: #F8F9FF;
+      --title-soft: #E2E5F2;
+      --comp-plate: #F2F3F8;
+      --muted: #B7BCD2;
+      --muted-2: #888FAC;
+      --line: rgba(210,214,235,.18);
+      --surface: rgba(36,40,93,.68);
+      --surface-hover: rgba(52,58,120,.84);
       --radius: 18px;
       --radius-lg: 28px;
-      --shadow: 0 30px 80px rgba(0,0,0,.28);
+      --shadow: 0 30px 80px rgba(5,7,28,.32);
       --transition: all .3s ease;
       --max-width: 480px;
       --px: 20px;
@@ -48,16 +57,16 @@
       font-family: var(--font);
       color: var(--white);
       background:
-        radial-gradient(circle at 8% 0%, rgba(45,120,190,.24), transparent 31%),
-        radial-gradient(circle at 95% 92%, rgba(20,165,112,.27), transparent 34%),
-        linear-gradient(145deg, #041322 0%, #08293a 40%, #0a473f 72%, #0b6b55 100%);
+        radial-gradient(circle at 8% 0%, rgba(97,189,83,.13), transparent 30%),
+        radial-gradient(circle at 96% 92%, rgba(97,189,83,.10), transparent 32%),
+        linear-gradient(145deg, #0A0D2B 0%, #13163E 42%, #1C1C4F 76%, #202F42 100%);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
 
     img { display: block; max-width: 100%; }
     a { color: inherit; }
-    a:focus-visible { outline: 3px solid rgba(110,219,208,.78); outline-offset: 3px; }
+    a:focus-visible { outline: 3px solid rgba(97,189,83,.84); outline-offset: 3px; }
 
     .shell { min-height: 100vh; }
     .app {
@@ -68,9 +77,9 @@
       padding: 18px var(--px) 32px;
       overflow: hidden;
       background:
-        radial-gradient(circle at 82% 4%, rgba(52,122,181,.15), transparent 27%),
-        radial-gradient(circle at 18% 92%, rgba(30,162,112,.16), transparent 31%),
-        linear-gradient(180deg, rgba(5,20,38,.985) 0%, rgba(7,39,49,.99) 53%, rgba(8,82,64,.985) 100%);
+        radial-gradient(circle at 84% 4%, rgba(97,189,83,.08), transparent 26%),
+        radial-gradient(circle at 12% 94%, rgba(97,189,83,.07), transparent 30%),
+        linear-gradient(180deg, #101338 0%, #171A49 52%, #1C1C4F 100%);
     }
 
     /* HEADER */
@@ -79,9 +88,9 @@
       border: 1px solid rgba(255,255,255,.08);
       border-radius: var(--radius-lg);
       background:
-        radial-gradient(circle at 100% 0%, rgba(65,134,188,.17), transparent 35%),
-        radial-gradient(circle at 0% 100%, rgba(29,151,110,.11), transparent 40%),
-        linear-gradient(180deg, rgba(7,24,42,.97), rgba(7,42,44,.94));
+        radial-gradient(circle at 100% 0%, rgba(97,189,83,.10), transparent 34%),
+        radial-gradient(circle at 0% 100%, rgba(97,189,83,.06), transparent 40%),
+        linear-gradient(180deg, rgba(24,27,72,.98), rgba(28,28,79,.97));
       box-shadow: var(--shadow);
     }
 
@@ -117,8 +126,8 @@
       width: 8px;
       height: 8px;
       border-radius: 50%;
-      background: var(--teal-light);
-      box-shadow: 0 0 0 5px rgba(110,219,208,.10);
+      background: var(--brand-green);
+      box-shadow: 0 0 0 5px rgba(97,189,83,.13);
     }
 
     .hero { margin-top: 24px; }
@@ -130,8 +139,8 @@
       gap: 12px;
       padding: 12px 16px;
       border-radius: 18px;
-      background: #eef3f7;
-      box-shadow: inset 0 0 0 1px rgba(7,35,96,.08), 0 14px 30px rgba(0,0,0,.16);
+      background: #F4F5FA;
+      box-shadow: inset 0 0 0 1px rgba(28,28,79,.10), 0 14px 30px rgba(5,7,28,.18);
     }
 
     .brand-wordmark .title-icon {
@@ -158,6 +167,11 @@
       font-weight: 500;
     }
 
+    .hero-copy strong {
+      color: var(--white);
+      font-weight: 800;
+    }
+
     /* LINKTREE */
     .links {
       padding-top: 16px;
@@ -182,24 +196,95 @@
       backdrop-filter: blur(10px);
     }
 
+
+    .participation-note {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin: 2px 6px 4px;
+      color: var(--teal-light);
+      font-size: .86rem;
+      line-height: 1.45;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .participation-note i {
+      flex: 0 0 auto;
+    }
+
+    .prize-info {
+      margin: 4px 0 2px;
+      padding: 16px 17px;
+      border: 1px solid rgba(97,189,83,.28);
+      border-radius: var(--radius);
+      background: rgba(20,23,63,.72);
+    }
+
+    .prize-title {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .prize-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 11px;
+      color: var(--teal-light);
+      background: rgba(97,189,83,.13);
+    }
+
+    .prize-title strong {
+      display: block;
+      font-size: .98rem;
+      line-height: 1.3;
+      font-weight: 800;
+      color: var(--white);
+    }
+
+    .prize-title small {
+      display: block;
+      margin-top: 2px;
+      font-size: .78rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .prize-list {
+      margin: 13px 0 0;
+      padding: 0 0 0 18px;
+      color: var(--title-soft);
+      font-size: .86rem;
+      line-height: 1.55;
+      font-weight: 600;
+    }
+
+    .prize-list li + li { margin-top: 4px; }
+    .prize-list span { color: var(--muted); font-weight: 500; }
+
     .link-btn:hover {
       transform: translateY(-2px);
       background: var(--surface-hover);
-      border-color: rgba(110,219,208,.32);
+      border-color: rgba(97,189,83,.48);
       box-shadow: 0 14px 30px rgba(0,0,0,.17);
     }
 
     .link-btn:active { transform: translateY(0) scale(.992); }
 
     .link-btn.primary {
-      background: linear-gradient(135deg, #21baa9 0%, #16978f 48%, #39739a 100%);
-      border-color: rgba(255,255,255,.14);
-      box-shadow: 0 16px 34px rgba(20,154,142,.18);
+      background: linear-gradient(135deg, #61BD53 0%, #55AE49 58%, #43923C 100%);
+      border-color: rgba(217,255,211,.34);
+      box-shadow: 0 16px 34px rgba(97,189,83,.22);
     }
 
     .link-btn.results {
-      border-color: rgba(110,219,208,.24);
-      background: linear-gradient(90deg, rgba(29,151,143,.10), rgba(62,113,150,.08));
+      border-color: rgba(97,189,83,.30);
+      background: linear-gradient(90deg, rgba(97,189,83,.08), rgba(52,58,120,.18));
     }
 
     .btn-icon {
@@ -218,7 +303,7 @@
     .btn-copy strong { display: block; font-size: 1.08rem; font-weight: 800; line-height: 1.24; }
     .btn-copy small { display: block; margin-top: 5px; color: var(--muted-2); font-size: .82rem; font-weight: 600; line-height: 1.35; }
     .primary .btn-copy small { color: rgba(255,255,255,.74); }
-    .arrow { color: #738899; transition: var(--transition); }
+    .arrow { color: #9298B5; transition: var(--transition); }
     .primary .arrow { color: #fff; }
     .link-btn:hover .arrow { transform: translateX(3px); color: var(--teal-light); }
     .link-btn.primary:hover .arrow { color: #fff; }
@@ -239,7 +324,7 @@
       width: 230px;
       height: 230px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(77,155,210,.16), transparent 68%);
+      background: radial-gradient(circle, rgba(97,189,83,.13), transparent 68%);
       pointer-events: none;
     }
 
@@ -327,9 +412,9 @@
       text-decoration: none;
       transition: var(--transition);
     }
-    .social-link:hover { transform: translateY(-2px); color: var(--teal-light); background: rgba(255,255,255,.08); border-color: rgba(110,219,208,.35); }
+    .social-link:hover { transform: translateY(-2px); color: var(--brand-green-light); background: rgba(97,189,83,.10); border-color: rgba(97,189,83,.44); }
 
-    footer { padding: 10px 2px 2px; text-align: center; color: #687e8e; font-size: .65rem; font-weight: 600; }
+    footer { padding: 10px 2px 2px; text-align: center; color: #858BA8; font-size: .65rem; font-weight: 600; }
 
     @media (min-width: 700px) {
       .shell { padding: 34px 0; }
@@ -370,25 +455,47 @@
 
         <div class="hero">
           <h1 class="brand-wordmark" id="hero-title"><img class="title-icon" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAIoAAACKCAYAAAB1h9JkAAAClElEQVR4nO3dQU7bUBRA0Z+qg26kG2EnjMqQpTAsI3bCRrqRztJBkQpSnVxDEuz4nCkRssTl+8fPTnb7/X7AMV8++wBYB6GQCIVEKCRCIREKiVBIvh57wbfvty60bMTvX0+7qZ9ZUUiEQiIUEqGQCIVEKCRCIREKiVBIhEIiFJKjs565Ds0LuKxTzumsKCRCIREKiVBIhEIiFBKhkAiFRCgkQiERColQSIRCIhQSoZCc/H6Uj1rKs871vpq5x7vW+3WsKCRCIREKiVBIFreZ/ai7x3mv//njPMdxbawoJEIhEQqJUEiEQiIUksW9PZ4zCznFXOjucYyHm3XOXy7JijLGuH9exiByyYTyQiyHCeUVsUxb3B7ls90/3+4/umc5NEaYinHp+6SrC+XQ7KbOgU4Ry7XZ1Klnzh/faeitTYUyhljea3OhjCGW99hkKGMsf/O4NJsNZQyxzLHpUMYQS7X5UMYQSyEUEqGQCIXk6i7hL8GhMYJnj7lqQiERColQSIRCIhQSoZAIhUQoJKu4Mjt1l9nUzdI+HOf0rCgkQiERColQSIQSeGRDKNnWYxHKDFuORSgzbTUWobzwmOlhQnlFLNNWcQn/kh5unnY1gvvn2/1WxgirCGXqP/1c3xY2J5atcOqZ4DHTt4RygFj+EcoRYvlLKIFYVrKZvbT/bZLnfrPYnN89ZUmPn1pRSIRCIhQSoZAIhUQoJN4eR9c25JvLikIiFBKhkAiFZNWb2XPNQpY0Y1kKKwqJUEiEQiIUEqGQCIVEKCRCIREKiVBIhEIiFBKhkAiFRCgkJ78f5VwfbsPnsqKQCIVEKCRCIREKiVBIhEIiFBKhkAiFRCgku/3eaIbjrCgkQiERColQSIRCIhSSP8h8hZ4chOsjAAAAAElFTkSuQmCC" alt="Símbolo TechComp" /><img class="title-wordmark" src="data:image/png;base64,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" alt="TechComp" /></h1>
-          <p class="hero-copy">Participe do sorteio, acompanhe os resultados e conheça como a TechComp ajuda empresas a reduzir custos, organizar o parque tecnológico e cuidar das demandas de TI.</p>
+          <p class="hero-copy"><strong>Descubra os custos invisíveis da sua TI e concorra a um dos 2 kits exclusivos da TechComp.</strong> Será sorteado 1 kit ao final de cada dia do evento. Ao concluir a calculadora, sua participação fica registrada automaticamente.</p>
         </div>
       </section>
 
       <nav class="links" aria-label="Links principais">
-        <a class="link-btn primary" data-link="sorteio" href="#" aria-label="Participar do sorteio">
-          <span class="btn-icon"><i class="fa-solid fa-gift" aria-hidden="true"></i></span>
+        <a class="link-btn primary" data-link="calculadora" href="#" aria-label="Responder à calculadora e concorrer ao kit TechComp">
+          <span class="btn-icon"><i class="fa-solid fa-calculator" aria-hidden="true"></i></span>
           <span class="btn-copy">
-            <strong>Participar do sorteio</strong>
-            <small>Preencha seus dados e concorra aos brindes</small>
+            <strong>Responder à calculadora e concorrer</strong>
+            <small>2 kits no total • 1 sorteado ao final de cada dia</small>
           </span>
           <i class="fa-solid fa-chevron-right arrow" aria-hidden="true"></i>
         </a>
+
+        <div class="participation-note" aria-label="Informação sobre participação no sorteio">
+          <i class="fa-solid fa-gift" aria-hidden="true"></i>
+          Concluiu a calculadora? Sua participação está confirmada no sorteio referente ao dia da sua inscrição.
+        </div>
+
+        <div class="prize-info" aria-label="Itens do kit exclusivo TechComp">
+          <div class="prize-title">
+            <span class="prize-icon"><i class="fa-solid fa-gift" aria-hidden="true"></i></span>
+            <div>
+              <strong>2 kits exclusivos TechComp</strong>
+              <small>1 kit será sorteado ao final de cada dia do evento. Cada kit reúne:</small>
+            </div>
+          </div>
+          <ul class="prize-list">
+            <li>Fone de ouvido Bluetooth</li>
+            <li>Carregador portátil</li>
+            <li>Kit de produção de vídeo <span>(microfone, lanterna e apoio para celular)</span></li>
+            <li>Copo térmico</li>
+            <li>Caixa de som Bluetooth</li>
+          </ul>
+        </div>
 
         <a class="link-btn results" data-link="resultados" href="#" aria-label="Acompanhar resultados do sorteio">
           <span class="btn-icon"><i class="fa-solid fa-trophy" aria-hidden="true"></i></span>
           <span class="btn-copy">
             <strong>Acompanhar resultados do sorteio</strong>
-            <small>Veja os ganhadores e atualizações</small>
+            <small>Confira o ganhador ao final de cada dia do evento</small>
           </span>
           <i class="fa-solid fa-chevron-right arrow" aria-hidden="true"></i>
         </a>
@@ -416,7 +523,7 @@
           <span class="btn-icon"><i class="fa-solid fa-building" aria-hidden="true"></i></span>
           <span class="btn-copy">
             <strong>Conheça a TechComp</strong>
-            <small>Redução de custos, gestão do parque e serviços de TI</small>
+            <small>Entenda como ajudamos a organizar a TI e reduzir custos</small>
           </span>
           <i class="fa-solid fa-chevron-down arrow" aria-hidden="true"></i>
         </a>
@@ -433,8 +540,8 @@
           <div class="pillar">
             <span class="pillar-number">01</span>
             <div>
-              <strong>Redução de custos</strong>
-              <p>Mais clareza sobre gastos de tecnologia, melhor aproveitamento dos recursos existentes e apoio a decisões que reduzam desperdícios na operação.</p>
+              <strong>Calculadora de Custos e Redução de Custos</strong>
+              <p>Use a Calculadora de Custos para identificar impactos invisíveis da TI na operação e enxergar oportunidades de reduzir desperdícios, melhorar o aproveitamento dos recursos e tomar decisões com mais clareza.</p>
             </div>
           </div>
 
@@ -471,13 +578,13 @@
 
   <script>
     const SITE_CONFIG = {
-      sorteio: "#",
-      resultados: "#",
+      calculadora: "calculado-custos.vercel.app",  // URL da calculadora de custos invisíveis
+      resultados: "mostrar-resultado.vercel.app",
       whatsapp: "https://wa.me/+5584981878563",
-      techcomp: "https://www.grupoecomp.com.br/empresa/techcomp/",
-      instagram: "https://www.instagram.com/techcompbr",
-      linkedin: "https://www.linkedin.com/showcase/healthcompbr/",
-      facebook: "https://www.instagram.com/techcompbr"
+      techcomp: "https://www.instagram.com/techcompbr?igsh=ZDM1cm51eDJscWk4&igsi=ZDM1cm51eDJscWk4",
+      instagram: "https://www.instagram.com/techcompbr?igsh=ZDM1cm51eDJscWk4&igsi=ZDM1cm51eDJscWk4",
+      linkedin: "https://www.linkedin.com/showcase/grupoecomp/about/",
+      facebook: "#"
     };
 
     document.querySelectorAll("[data-link]").forEach((element) => {
