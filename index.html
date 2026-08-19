@@ -474,22 +474,14 @@
           Concluiu a calculadora? Sua participação está confirmada no sorteio referente ao dia da sua inscrição.
         </div>
 
-        <div class="prize-info" aria-label="Itens do kit exclusivo TechComp">
-          <div class="prize-title">
-            <span class="prize-icon"><i class="fa-solid fa-gift" aria-hidden="true"></i></span>
-            <div>
-              <strong>2 kits exclusivos TechComp</strong>
-              <small>1 kit será sorteado ao final de cada dia do evento. Cada kit reúne:</small>
-            </div>
-          </div>
-          <ul class="prize-list">
-            <li>Fone de ouvido Bluetooth</li>
-            <li>Carregador portátil</li>
-            <li>Kit de produção de vídeo <span>(microfone, lanterna e apoio para celular)</span></li>
-            <li>Copo térmico</li>
-            <li>Caixa de som Bluetooth</li>
-          </ul>
-        </div>
+        <a class="link-btn" data-link="brindes" href="#" aria-label="Ver os brindes do sorteio TechComp">
+          <span class="btn-icon"><i class="fa-solid fa-gift" aria-hidden="true"></i></span>
+          <span class="btn-copy">
+            <strong>Ver brindes do sorteio</strong>
+            <small>Conheça os 5 itens que fazem parte de cada kit</small>
+          </span>
+          <i class="fa-solid fa-chevron-right arrow" aria-hidden="true"></i>
+        </a>
 
         <a class="link-btn results" data-link="resultados" href="#" aria-label="Acompanhar resultados do sorteio">
           <span class="btn-icon"><i class="fa-solid fa-trophy" aria-hidden="true"></i></span>
@@ -579,6 +571,7 @@
   <script>
     const SITE_CONFIG = {
       calculadora: "https://calculadora-custos-six.vercel.app",  // URL da calculadora de custos invisíveis
+      brindes: "brindes.html",
       resultados: "https://acompanhar-resultados.vercel.app/",
       whatsapp: "https://wa.me/+5584981878563",
       techcomp: "https://www.instagram.com/techcompbr?igsh=ZDM1cm51eDJscWk4&igsi=ZDM1cm51eDJscWk4",
