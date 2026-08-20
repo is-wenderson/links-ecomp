@@ -1,0 +1,31 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/evento",
+      "destination": "https://script.google.com/macros/s/AKfycbwggSxmdazf51DYStHDcaBap0Xfvhjo9qyNawDP03dxXKjaUsZsWYA7oERthX-HMMc/exec"
+    },
+    {
+      "source": "/api/sorteio",
+      "destination": "https://script.google.com/macros/s/AKfycbwggSxmdazf51DYStHDcaBap0Xfvhjo9qyNawDP03dxXKjaUsZsWYA7oERthX-HMMc/exec"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "same-origin"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "no-store"
+        }
+      ]
+    }
+  ]
+}
