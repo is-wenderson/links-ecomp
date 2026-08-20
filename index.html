@@ -234,8 +234,8 @@
   </div>
 
   <script>
-    const API_URL = "/api/evento";
-    const INSTAGRAM_CLICK_KEY = "techcomp_instagram_clicked_v4";
+    const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwggSxmdazf51DYStHDcaBap0Xfvhjo9qyNawDP03dxXKjaUsZsWYA7oERthX-HMMc/exec";
+    const INSTAGRAM_CLICK_KEY = "techcomp_instagram_clicked_v5";
 
     const form = document.getElementById("leadForm");
     const submitBtn = document.getElementById("submitBtn");
@@ -294,11 +294,10 @@
       document.getElementById("formContent").style.display = "none";
       document.getElementById("successContent").style.display = "block";
 
-      // Limpa o clique para um eventual novo cadastro no mesmo aparelho.
-      sessionStorage.removeItem(INSTAGRAM_CLICK_KEY);
+      try {
+        sessionStorage.removeItem(INSTAGRAM_CLICK_KEY);
+      } catch (_) {}
 
-      // iOS Safari nem sempre executa scrollTo({behavior}) de forma consistente
-      // após retorno de aplicativo externo. Fazemos os dois caminhos.
       try {
         window.scrollTo(0, 0);
       } catch (_) {}
@@ -309,42 +308,34 @@
             block: "start"
           });
         } catch (_) {}
-      }, 60);
+      }, 50);
     }
 
-    async function verificarSeCadastroFoiGravado(telefone, instagram) {
-      try {
-        const qs = new URLSearchParams({
-          action: "verificar_cadastro",
-          telefone: telefone,
-          instagram: instagram,
-          _: String(Date.now())
-        });
+    function enviarSemFetch(payload) {
+      const submitForm = document.createElement("form");
 
-        const response = await fetch(
-          API_URL + "?" + qs.toString(),
-          {
-            method: "GET",
-            cache: "no-store"
-          }
-        );
+      submitForm.method = "POST";
+      submitForm.action = APPS_SCRIPT_URL;
+      submitForm.target = "techcompSubmitFrame";
+      submitForm.style.display = "none";
 
-        if (!response.ok) return false;
+      Object.entries(payload).forEach(function([chave, valor]) {
+        const input = document.createElement("input");
+        input.type = "hidden";
+        input.name = chave;
+        input.value = String(valor ?? "");
+        submitForm.appendChild(input);
+      });
 
-        const text = await response.text();
-        if (!text) return false;
+      document.body.appendChild(submitForm);
+      submitForm.submit();
 
-        const data = JSON.parse(text);
-
-        return !!(
-          data &&
-          data.ok === true &&
-          data.encontrado === true
-        );
-
-      } catch (_) {
-        return false;
-      }
+      // Remove o formulário auxiliar depois que o navegador já iniciou o POST.
+      setTimeout(function() {
+        try {
+          submitForm.remove();
+        } catch (_) {}
+      }, 1200);
     }
 
     instagramOfficial.addEventListener("click", function() {
@@ -360,7 +351,6 @@
       atualizarEstadoInstagram();
     });
 
-    // Ao retornar do app do Instagram no iPhone, reaplica o estado.
     window.addEventListener("pageshow", function() {
       try {
         if (
@@ -383,7 +373,7 @@
 
     atualizarEstadoInstagram();
 
-    form.addEventListener("submit", async function(event) {
+    form.addEventListener("submit", function(event) {
       event.preventDefault();
       esconderErro();
 
@@ -440,85 +430,51 @@
         telefone: telefone,
         instagram_usuario: instagram,
         funcionarios: funcionarios,
-
         instagram_perfil_clicado: "SIM",
         confirmou_seguiu_instagram: "SIM",
-
         consentimento_dados: "SIM",
         data_hora: new Date().toISOString()
       };
 
-      submitBtn.disabled = true;
-      submitBtn.innerHTML =
-        '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
-
       try {
-        const response = await fetch(API_URL, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(payload),
-          cache: "no-store"
-        });
+        submitBtn.disabled = true;
+        submitBtn.innerHTML =
+          '<i class="fa-solid fa-spinner fa-spin"></i> Confirmando...';
 
-        const text = await response.text();
+        // IMPORTANTE:
+        // Não usamos fetch aqui.
+        // O POST é enviado por um formulário nativo para um iframe oculto.
+        // Isso evita o "Load failed" do Safari/iPhone após o Apps Script
+        // receber e salvar os dados.
+        enviarSemFetch(payload);
 
-        let data = null;
+        // Mostra a confirmação local imediatamente após disparar o POST.
+        // O Apps Script continua recebendo e gravando normalmente.
+        setTimeout(function() {
+          mostrarSucesso();
 
-        if (text) {
-          try {
-            data = JSON.parse(text);
-          } catch (_) {
-            // No iPhone, se o POST foi aceito mas o corpo chegou diferente,
-            // um HTTP 2xx ainda pode ser confirmado pelo endpoint de consulta.
-          }
-        }
-
-        if (!response.ok) {
-          throw new Error(
-            data && data.erro
-              ? data.erro
-              : "Não foi possível concluir o cadastro."
-          );
-        }
-
-        if (data && data.ok === false) {
-          throw new Error(
-            data.erro ||
-            "Não foi possível concluir o cadastro."
-          );
-        }
-
-        // Resposta 2xx com JSON válido ou sem JSON:
-        // confirma visualmente o cadastro.
-        mostrarSucesso();
+          submitBtn.disabled = false;
+          submitBtn.innerHTML =
+            '<i class="fa-solid fa-check"></i> Confirmar participação';
+        }, 450);
 
       } catch (error) {
-        // Fallback importante para iPhone:
-        // se o POST já chegou ao Apps Script, mas o Safari perdeu a resposta
-        // ao alternar para o Instagram, verificamos a planilha antes de exibir erro.
-        const gravado = await verificarSeCadastroFoiGravado(
-          telefone,
-          instagram
-        );
-
-        if (gravado) {
-          mostrarSucesso();
-        } else {
-          mostrarErro(
-            error && error.message
-              ? error.message
-              : "Não foi possível concluir o cadastro. Tente novamente."
-          );
-        }
-
-      } finally {
         submitBtn.disabled = false;
         submitBtn.innerHTML =
           '<i class="fa-solid fa-check"></i> Confirmar participação';
+
+        mostrarErro(
+          "Não foi possível enviar o cadastro. Tente novamente."
+        );
       }
     });
   </script>
+
+  <iframe
+    name="techcompSubmitFrame"
+    id="techcompSubmitFrame"
+    style="display:none;width:0;height:0;border:0"
+    aria-hidden="true"></iframe>
+
 </body>
 </html>
