@@ -86,6 +86,20 @@
     }
     .check{display:flex;align-items:flex-start;gap:10px;margin-top:12px;color:var(--soft);font-size:.78rem;line-height:1.45}
     .check input{width:18px;height:18px;min-height:0;margin:1px 0 0;accent-color:var(--green);flex:0 0 auto}
+
+    .instagram-status{
+      margin-top:10px;
+      display:flex;
+      align-items:center;
+      gap:7px;
+      color:#ffcf8d;
+      font-size:.74rem;
+      font-weight:700;
+      line-height:1.4;
+    }
+    .instagram-status.ok{color:#a9ee9e}
+    .check.is-disabled{opacity:.52}
+    .check input:disabled{cursor:not-allowed}
     .submit{
       width:100%;min-height:58px;border:0;border-radius:15px;display:flex;align-items:center;justify-content:center;gap:10px;
       color:#071406;background:linear-gradient(135deg,#61BD53,#55AE49 58%,#43923C);font-weight:800;cursor:pointer;
@@ -169,14 +183,27 @@
             </div>
 
             <div class="instagram-box">
-              <p>Conheça melhor a TechComp e acompanhe nossos conteúdos e novidades no Instagram.</p>
+              <p>
+                Para concluir a participação, <strong>é obrigatório abrir o Instagram da TechComp</strong>.
+                Clique no botão abaixo e depois volte para esta página.
+              </p>
+
               <a class="instagram-link"
+                 id="instagramOfficial"
                  href="https://www.instagram.com/techcompbr?igsh=ZDM1cm51eDJscWk4&igsi=ZDM1cm51eDJscWk4"
-                 target="_blank" rel="noopener noreferrer">
-                <i class="fa-brands fa-instagram"></i> Abrir @techcompbr
+                 target="_blank"
+                 rel="noopener noreferrer">
+                <i class="fa-brands fa-instagram"></i>
+                Abrir @techcompbr
               </a>
-              <label class="check">
-                <input type="checkbox" id="confirmouInstagram" required />
+
+              <div class="instagram-status" id="instagramStatus">
+                <i class="fa-solid fa-circle-exclamation"></i>
+                Clique no Instagram para liberar a confirmação.
+              </div>
+
+              <label class="check is-disabled" id="instagramCheckLabel">
+                <input type="checkbox" id="confirmouInstagram" required disabled />
                 <span>Confirmo que acessei e estou seguindo o perfil oficial da TechComp.</span>
               </label>
             </div>
@@ -208,32 +235,200 @@
 
   <script>
     const API_URL = "/api/evento";
+    const INSTAGRAM_CLICK_KEY = "techcomp_instagram_clicked_v4";
+
     const form = document.getElementById("leadForm");
     const submitBtn = document.getElementById("submitBtn");
     const errorBox = document.getElementById("errorBox");
+    const instagramOfficial = document.getElementById("instagramOfficial");
+    const confirmouInstagram = document.getElementById("confirmouInstagram");
+    const instagramStatus = document.getElementById("instagramStatus");
+    const instagramCheckLabel = document.getElementById("instagramCheckLabel");
 
-    const limparTelefone = (v) => String(v || "").replace(/\D/g, "");
-    const limparInstagram = (v) => String(v || "").trim().replace(/^@+/, "");
+    let instagramClicado =
+      sessionStorage.getItem(INSTAGRAM_CLICK_KEY) === "SIM";
 
-    form.addEventListener("submit", async (event) => {
-      event.preventDefault();
+    function limparTelefone(v) {
+      return String(v || "").replace(/\D/g, "");
+    }
+
+    function limparInstagram(v) {
+      return String(v || "").trim().replace(/^@+/, "");
+    }
+
+    function atualizarEstadoInstagram() {
+      if (instagramClicado) {
+        confirmouInstagram.disabled = false;
+        instagramCheckLabel.classList.remove("is-disabled");
+        instagramStatus.classList.add("ok");
+        instagramStatus.innerHTML =
+          '<i class="fa-solid fa-circle-check"></i> Instagram aberto. Agora confirme abaixo.';
+      } else {
+        confirmouInstagram.checked = false;
+        confirmouInstagram.disabled = true;
+        instagramCheckLabel.classList.add("is-disabled");
+        instagramStatus.classList.remove("ok");
+        instagramStatus.innerHTML =
+          '<i class="fa-solid fa-circle-exclamation"></i> Clique no Instagram para liberar a confirmação.';
+      }
+    }
+
+    function mostrarErro(mensagem) {
+      errorBox.textContent = mensagem;
+      errorBox.style.display = "block";
+
+      try {
+        errorBox.scrollIntoView({
+          behavior: "smooth",
+          block: "center"
+        });
+      } catch (_) {}
+    }
+
+    function esconderErro() {
       errorBox.style.display = "none";
       errorBox.textContent = "";
+    }
+
+    function mostrarSucesso() {
+      document.getElementById("formContent").style.display = "none";
+      document.getElementById("successContent").style.display = "block";
+
+      // Limpa o clique para um eventual novo cadastro no mesmo aparelho.
+      sessionStorage.removeItem(INSTAGRAM_CLICK_KEY);
+
+      // iOS Safari nem sempre executa scrollTo({behavior}) de forma consistente
+      // após retorno de aplicativo externo. Fazemos os dois caminhos.
+      try {
+        window.scrollTo(0, 0);
+      } catch (_) {}
+
+      setTimeout(function() {
+        try {
+          document.getElementById("successContent").scrollIntoView({
+            block: "start"
+          });
+        } catch (_) {}
+      }, 60);
+    }
+
+    async function verificarSeCadastroFoiGravado(telefone, instagram) {
+      try {
+        const qs = new URLSearchParams({
+          action: "verificar_cadastro",
+          telefone: telefone,
+          instagram: instagram,
+          _: String(Date.now())
+        });
+
+        const response = await fetch(
+          API_URL + "?" + qs.toString(),
+          {
+            method: "GET",
+            cache: "no-store"
+          }
+        );
+
+        if (!response.ok) return false;
+
+        const text = await response.text();
+        if (!text) return false;
+
+        const data = JSON.parse(text);
+
+        return !!(
+          data &&
+          data.ok === true &&
+          data.encontrado === true
+        );
+
+      } catch (_) {
+        return false;
+      }
+    }
+
+    instagramOfficial.addEventListener("click", function() {
+      instagramClicado = true;
+
+      try {
+        sessionStorage.setItem(
+          INSTAGRAM_CLICK_KEY,
+          "SIM"
+        );
+      } catch (_) {}
+
+      atualizarEstadoInstagram();
+    });
+
+    // Ao retornar do app do Instagram no iPhone, reaplica o estado.
+    window.addEventListener("pageshow", function() {
+      try {
+        if (
+          sessionStorage.getItem(
+            INSTAGRAM_CLICK_KEY
+          ) === "SIM"
+        ) {
+          instagramClicado = true;
+        }
+      } catch (_) {}
+
+      atualizarEstadoInstagram();
+    });
+
+    document.addEventListener("visibilitychange", function() {
+      if (!document.hidden) {
+        atualizarEstadoInstagram();
+      }
+    });
+
+    atualizarEstadoInstagram();
+
+    form.addEventListener("submit", async function(event) {
+      event.preventDefault();
+      esconderErro();
 
       if (!form.reportValidity()) return;
 
-      const telefone = limparTelefone(document.getElementById("telefone").value);
-      const funcionarios = Number(document.getElementById("funcionarios").value);
-
-      if (telefone.length < 10) {
-        errorBox.textContent = "Informe um telefone válido com DDD.";
-        errorBox.style.display = "block";
+      if (!instagramClicado) {
+        mostrarErro(
+          "Antes de confirmar, clique no botão “Abrir @techcompbr”."
+        );
         return;
       }
 
-      if (!Number.isFinite(funcionarios) || funcionarios < 1) {
-        errorBox.textContent = "Informe a quantidade de funcionários.";
-        errorBox.style.display = "block";
+      if (!confirmouInstagram.checked) {
+        mostrarErro(
+          "Confirme que acessou e está seguindo o Instagram da TechComp."
+        );
+        return;
+      }
+
+      const telefone = limparTelefone(
+        document.getElementById("telefone").value
+      );
+
+      const instagram = limparInstagram(
+        document.getElementById("instagram").value
+      );
+
+      const funcionarios = Number(
+        document.getElementById("funcionarios").value
+      );
+
+      if (telefone.length < 10) {
+        mostrarErro(
+          "Informe um telefone válido com DDD."
+        );
+        return;
+      }
+
+      if (
+        !Number.isFinite(funcionarios) ||
+        funcionarios < 1
+      ) {
+        mostrarErro(
+          "Informe a quantidade de funcionários."
+        );
         return;
       }
 
@@ -242,44 +437,86 @@
         nome: document.getElementById("nome").value.trim(),
         cargo: document.getElementById("cargo").value.trim(),
         empresa: document.getElementById("empresa").value.trim(),
-        telefone,
-        instagram_usuario: limparInstagram(document.getElementById("instagram").value),
-        funcionarios,
-        confirmou_seguiu_instagram: document.getElementById("confirmouInstagram").checked ? "SIM" : "NÃO",
+        telefone: telefone,
+        instagram_usuario: instagram,
+        funcionarios: funcionarios,
+
+        instagram_perfil_clicado: "SIM",
+        confirmou_seguiu_instagram: "SIM",
+
         consentimento_dados: "SIM",
         data_hora: new Date().toISOString()
       };
 
-      try {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+      submitBtn.disabled = true;
+      submitBtn.innerHTML =
+        '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
 
+      try {
         const response = await fetch(API_URL, {
           method: "POST",
-          headers: {"Content-Type":"application/json"},
-          body: JSON.stringify(payload)
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(payload),
+          cache: "no-store"
         });
 
         const text = await response.text();
-        let data;
 
-        try { data = JSON.parse(text); }
-        catch { throw new Error("O servidor retornou uma resposta inválida."); }
+        let data = null;
 
-        if (!response.ok || !data.ok) {
-          throw new Error(data.erro || "Não foi possível concluir o cadastro.");
+        if (text) {
+          try {
+            data = JSON.parse(text);
+          } catch (_) {
+            // No iPhone, se o POST foi aceito mas o corpo chegou diferente,
+            // um HTTP 2xx ainda pode ser confirmado pelo endpoint de consulta.
+          }
         }
 
-        document.getElementById("formContent").style.display = "none";
-        document.getElementById("successContent").style.display = "block";
-        window.scrollTo({top:0,behavior:"smooth"});
+        if (!response.ok) {
+          throw new Error(
+            data && data.erro
+              ? data.erro
+              : "Não foi possível concluir o cadastro."
+          );
+        }
+
+        if (data && data.ok === false) {
+          throw new Error(
+            data.erro ||
+            "Não foi possível concluir o cadastro."
+          );
+        }
+
+        // Resposta 2xx com JSON válido ou sem JSON:
+        // confirma visualmente o cadastro.
+        mostrarSucesso();
 
       } catch (error) {
-        errorBox.textContent = error.message || "Erro ao enviar cadastro.";
-        errorBox.style.display = "block";
+        // Fallback importante para iPhone:
+        // se o POST já chegou ao Apps Script, mas o Safari perdeu a resposta
+        // ao alternar para o Instagram, verificamos a planilha antes de exibir erro.
+        const gravado = await verificarSeCadastroFoiGravado(
+          telefone,
+          instagram
+        );
+
+        if (gravado) {
+          mostrarSucesso();
+        } else {
+          mostrarErro(
+            error && error.message
+              ? error.message
+              : "Não foi possível concluir o cadastro. Tente novamente."
+          );
+        }
+
       } finally {
         submitBtn.disabled = false;
-        submitBtn.innerHTML = '<i class="fa-solid fa-check"></i> Confirmar participação';
+        submitBtn.innerHTML =
+          '<i class="fa-solid fa-check"></i> Confirmar participação';
       }
     });
   </script>
